@@ -1,0 +1,14 @@
+#!/bin/bash
+
+echo -e "\033[32m Checking non-ASCII code in file: $1 \033[0m"
+
+if [[ $(uname | grep Darwin) != "" ]]; then
+
+    echo -e "\033[31m Please install pcregrep by : brew install pcre \033[0m"
+    pcregrep --color='auto' -n "[\x80-\xFF]" $1
+else
+    grep --color='auto' -P -n "[\x80-\xFF]" $1 
+    #grep --color='auto' -P -n "[^\x00-\x7F]" $1
+fi
+
+
